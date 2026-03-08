@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Carta para Abby</title>
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:radial-gradient(circle at bottom,#0b132b,#000814);
+font-family:Georgia,serif;
+overflow:hidden;
+color:white;
+}
+
+/* ESTRELLAS */
+
+.star{
+position:absolute;
+width:2px;
+height:2px;
+background:white;
+border-radius:50%;
+opacity:.8;
+animation:twinkle 4s infinite;
+}
+
+@keyframes twinkle{
+0%{opacity:.2}
+50%{opacity:1}
+100%{opacity:.2}
+}
+
+/* CONTENEDOR */
+
+.container{
+position:relative;
+width:90%;
+max-width:520px;
+height:260px;
+cursor:pointer;
+animation:latido 3s infinite ease-in-out;
+}
+
+@keyframes latido{
+0%,100%{transform:scale(1)}
+50%{transform:scale(1.03)}
+}
+
+/* SOBRE */
+
+.envelope{
+position:absolute;
+width:100%;
+height:100%;
+background:#e4e8f5;
+border-radius:10px;
+box-shadow:0 20px 40px rgba(0,0,0,.4);
+}
+
+/* TAPA */
+
+.flap{
+position:absolute;
+width:100%;
+height:100%;
+background:#cbd6f5;
+clip-path:polygon(0 0,100% 0,50% 65%);
+transform-origin:top;
+transition:transform 2s cubic-bezier(.65,.05,.36,1);
+}
+
+/* SELLO */
+
+.seal{
+position:absolute;
+width:70px;
+height:70px;
+background:#7a1e2c;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:28px;
+color:#ffd6d6;
+
+left:50%;
+top:45%;
+transform:translate(-50%,-50%);
+box-shadow:0 6px 10px rgba(0,0,0,.5);
+
+transition:opacity .6s ease;
+}
+
+/* CARTA */
+
+.letter{
+position:absolute;
+width:94%;
+height:150%;
+left:3%;
+bottom:0;
+
+background:
+linear-gradient(rgba(255,255,255,.95),rgba(255,255,255,.95)),
+url("https://www.transparenttextures.com/patterns/aged-paper.png");
+
+border-radius:8px;
+
+padding:40px;
+
+box-sizing:border-box;
+
+color:#2f2f2f;
+
+box-shadow:0 20px 40px rgba(0,0,0,.35);
+
+transform:translateY(150%);
+
+transition:transform 2.4s cubic-bezier(.65,.05,.36,1);
+
+overflow:auto;
+
+font-size:16px;
+line-height:1.8;
+}
+
+/* ESTILOS TEXTO */
+
+.center{text-align:center}
+.bold{font-weight:bold}
+.left{text-align:left}
+
+/* ABIERTO */
+
+.open .flap{
+transform:rotateX(180deg);
+}
+
+.open .letter{
+transform:translateY(-60px);
+}
+
+.open .seal{
+opacity:0;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="stars"></div>
+
+<div class="container" id="sobre" onclick="abrirCarta()">
+
+<div class="envelope"></div>
+<div class="flap"></div>
+
+<div class="seal">🌙</div>
+
+<div class="letter">
+<div id="texto"></div>
+</div>
+
+</div>
+
+<script>
+
+/* CREAR ESTRELLAS */
+
+function crearEstrellas(){
+
+let cont=document.getElementById("stars")
+
+for(let i=0;i<80;i++){
+
+let star=document.createElement("div")
+star.className="star"
+
+star.style.left=Math.random()*100+"vw"
+star.style.top=Math.random()*100+"vh"
+
+star.style.animationDelay=Math.random()*4+"s"
+
+cont.appendChild(star)
+
+}
+
+}
+
+crearEstrellas()
+
+/* ABRIR CARTA */
+
+let abierto=false
+
+function abrirCarta(){
+
+if(!abierto){
+
+document.body.classList.add("open")
+
+escribirTexto()
+
+abierto=true
+
+}
+
+}
+
+/* TEXTO */
+
+const lineas=[
+
+{t:"Hola Abby,"},
+
+{t:"Espero que esta carta te acompañe en este día y te dé ese abrazo que no te puedo dar ahora mismo."},
+
+{t:"Eres una mujer fuerte, guerrera e increíble. Así como todas las guerreras, también hay momentos en los que aparecen enemigos y pasan situaciones indeseadas, en las que muchas veces no reaccionamos como esperábamos."},
+
+{t:"Sin embargo, esas situaciones no te definen. No te hacen menos fuerte ni te hacen más pequeña. Al contrario, tú eres tan grande como todo el amor que das y como el impacto que tienes en todas las personas que te conocen. Y créeme, es muchísimo."},
+
+{t:"Te mereces todo. Exige lo que quieras, no esperes menos. No te avergüences y, sobre todo, no te culpes de nada."},
+
+{t:"Quiero compartir contigo estos pequeños poemas que espero te gusten y, más que eso, te reconforten."},
+
+{t:""},
+{t:""},
+
+{t:"What Can’t Be Taken",c:"center bold"},
+{t:""},
+{t:"Trauma was not being",c:"center"},
+{t:"able to get the hands",c:"center"},
+{t:"of the clock off me.",c:"center"},
+{t:"Healing was learning",c:"center"},
+{t:"no one has ever laid a fingerprint",c:"center"},
+{t:"on the part of me that's infinite.",c:"center"},
+
+{t:""},
+
+{t:"“You are not weak just because your heart feels so heavy.”",c:"center bold"},
+
+{t:"― Andrea Gibson",c:"center"},
+
+{t:""},
+
+{t:"Me gusta este poema porque habla de cómo el trauma puede hacernos sentir atrapados en el tiempo, como si el pasado siguiera pesando sobre nosotros. Pero también te recuerda que hay una parte de nosotros que nadie puede tocar ni romper."},
+
+{t:""},
+
+{t:"Te amo ✨"}
+
+]
+
+let contenedor=document.getElementById("texto")
+let carta=document.querySelector(".letter")
+
+let lineaActual=0
+let charActual=0
+
+function escribirTexto(){
+
+if(lineaActual>=lineas.length)return
+
+let linea=lineas[lineaActual]
+
+if(charActual===0){
+
+let p=document.createElement("div")
+
+if(linea.c)p.className=linea.c
+
+contenedor.appendChild(p)
+
+}
+
+let p=contenedor.lastChild
+
+p.innerHTML+=linea.t.charAt(charActual)
+
+charActual++
+
+carta.scrollTop=carta.scrollHeight
+
+if(charActual<linea.t.length){
+
+setTimeout(escribirTexto,25)
+
+}else{
+
+p.innerHTML+="\n"
+charActual=0
+lineaActual++
+
+setTimeout(escribirTexto,350)
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
